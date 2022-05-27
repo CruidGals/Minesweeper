@@ -3,6 +3,8 @@ package MinesweeperGame;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 
+import MinesweeperGame.Game.GameBoard;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -220,6 +222,11 @@ public class MinesweeperPanel extends JPanel {
 		setBackground(Color.lightGray);
 		setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 		revealedStatus = true;
+		
+		Game.currBoard.setTilesLeft(Game.currBoard.getTilesLeft() - 1);
+		if(Game.currBoard.boardCleared()) {
+			gameOver();
+		}
 	}
 
 	public void gameOver() {
@@ -231,4 +238,5 @@ public class MinesweeperPanel extends JPanel {
 			}
 		}
 	}
+	
 }

@@ -2,8 +2,6 @@ package MinesweeperGame;
 
 /* TO-DO LIST
 * 
-* Make a win system
-* 
 * Make a "clump system" where user can reveal multiple blocks with one click.
 *  - For this system, make it so that if a bomb isn't in the radius of ex. 2 blocks, the clump system will occur
 *  
@@ -76,11 +74,15 @@ public class Game extends JFrame {
 	class GameBoard extends JPanel {
 
 		private static final long serialVersionUID = 5564628847039485367L;
+		private int tilesLeft;
+		private final int bombs;
 		MinesweeperPanel[][] board;
 
 		public GameBoard(int size) {
 			
 			this.setLayout(new GridLayout(size, size));
+			tilesLeft = size * size;
+			bombs = (int) Math.pow(size, 2) / 6;
 			
 			board = MinesweeperPanel.initMinesweeperBoard(size);
 			
@@ -90,6 +92,24 @@ public class Game extends JFrame {
 				}
 			}
 			
+		}
+
+		/**
+		 * @return the tilesLeft
+		 */
+		public int getTilesLeft() {
+			return tilesLeft;
+		}
+
+		/**
+		 * @param tilesLeft the tilesLeft to set
+		 */
+		public void setTilesLeft(int tilesLeft) {
+			this.tilesLeft = tilesLeft;
+		}
+		
+		public boolean boardCleared() {
+			return tilesLeft <= bombs;
 		}
 		
 	}
