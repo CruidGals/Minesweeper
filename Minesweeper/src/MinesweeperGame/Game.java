@@ -71,48 +71,7 @@ public class Game extends JFrame {
 		mainMenu.addActionListener(new GameLoader());
 	}
 
-	class GameBoard extends JPanel {
-
-		private static final long serialVersionUID = 5564628847039485367L;
-		private int tilesLeft;
-		private final int bombs;
-		MinesweeperPanel[][] board;
-
-		public GameBoard(int size) {
-			
-			this.setLayout(new GridLayout(size, size));
-			tilesLeft = size * size;
-			bombs = (int) Math.pow(size, 2) / 6;
-			
-			board = MinesweeperPanel.initMinesweeperBoard(size);
-			
-			for(MinesweeperPanel[] row : board) {
-				for(MinesweeperPanel col : row) {
-					this.add(col);
-				}
-			}
-			
-		}
-
-		/**
-		 * @return the tilesLeft
-		 */
-		public int getTilesLeft() {
-			return tilesLeft;
-		}
-
-		/**
-		 * @param tilesLeft the tilesLeft to set
-		 */
-		public void setTilesLeft(int tilesLeft) {
-			this.tilesLeft = tilesLeft;
-		}
-		
-		public boolean boardCleared() {
-			return tilesLeft <= bombs;
-		}
-		
-	}
+	
 
 	class GameStartup extends JPanel{
 
