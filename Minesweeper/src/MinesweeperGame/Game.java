@@ -36,6 +36,8 @@ public class Game extends JFrame {
 	static boolean inPlay = false;
 
 	public Game() {
+		currBoard = new GameBoard();		
+		
 		setTitle("Minesweeper");
 		setSize(400, 400);
 		setResizable(false);
@@ -132,7 +134,7 @@ public class Game extends JFrame {
 	 * @param size Size of the board
 	 */
 	public void initiateGame(int size) {
-		currBoard = new GameBoard(size);
+		currBoard.initGame(size);
 		frameSwitcher.add(currBoard, "Board");
 		setSize(40 * size, 40 * size + 20);
 		switchFrames(1);
@@ -152,6 +154,20 @@ public class Game extends JFrame {
 		}
 	}
 
+	/**
+	 * Stops the game from running by opening all the tiles on the board.
+	 */
+	public static void gameOver() {
+		for (MinesweeperPanel[] row : GameBoard.board) {
+			for (MinesweeperPanel col : row) {
+				if (!col.getRevealStatus()) {
+					col.revealPanel();
+				}
+			}
+		}
+	}
+	
+	
 	
 	/**
 	 * Implements a new Action Listener to create a new game based on Source of the Action

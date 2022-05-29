@@ -14,11 +14,11 @@ import javax.swing.JPanel;
 public class GameBoard extends JPanel {
 
 	private static final long serialVersionUID = 5564628847039485367L;
-	private int tilesLeft;
-	private final int bombs;
+	private static int tilesLeft;
+	private static int bombs;
 	static MinesweeperPanel[][] board;
 
-	public GameBoard(int size) {
+	public void initGame(int size) {
 		
 		this.setLayout(new GridLayout(size, size));
 		tilesLeft = size * size;
@@ -37,7 +37,7 @@ public class GameBoard extends JPanel {
 	/**
 	 * @return Returns the number of tiles that have not been opened yet
 	 */
-	public int getTilesLeft() {
+	public static int getTilesLeft() {
 		return tilesLeft;
 	}
 
@@ -45,15 +45,15 @@ public class GameBoard extends JPanel {
 	 * Sets the number of tiles that have not been opened yet
 	 * @param tilesLeft Numbers of tiles that have not been open yet
 	 */
-	public void setTilesLeft(int tilesLeft) {
-		this.tilesLeft = tilesLeft;
+	public static void setTilesLeft(int t) {
+		tilesLeft = t;
 	}
 	
 	/**
 	 * 
 	 * @return Returns a boolean value depending if all the normal tiles have been cleared
 	 */
-	public boolean boardCleared() {
+	public static boolean boardCleared() {
 		return tilesLeft <= bombs;
 	}
 	
@@ -157,17 +157,6 @@ public class GameBoard extends JPanel {
 	}
 	
 	
-	/**
-	 * Stops the game from running by opening all the tiles on the board.
-	 */
-	public static void gameOver() {
-		for (MinesweeperPanel[] row : board) {
-			for (MinesweeperPanel col : row) {
-				if (!col.getRevealStatus()) {
-					col.revealPanel();
-				}
-			}
-		}
-	}
+	
 	
 }

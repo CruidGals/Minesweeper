@@ -87,7 +87,7 @@ public class MinesweeperPanel extends JPanel {
 			if(SwingUtilities.isLeftMouseButton(e)) {
 				source.revealPanel();
 				if(source.containsBomb()) {
-					GameBoard.gameOver();
+					Game.gameOver();
 				}
 			} else if(SwingUtilities.isRightMouseButton(e)) {
 				if(flaggedStatus) {
@@ -121,9 +121,9 @@ public class MinesweeperPanel extends JPanel {
 		setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 		revealedStatus = true;
 		
-		Game.currBoard.setTilesLeft(Game.currBoard.getTilesLeft() - 1);
-		if(Game.currBoard.boardCleared()) {
-			GameBoard.gameOver();
+		GameBoard.setTilesLeft(GameBoard.getTilesLeft() - 1);
+		if(GameBoard.boardCleared()) {
+			Game.gameOver();
 		}
 	}
 
