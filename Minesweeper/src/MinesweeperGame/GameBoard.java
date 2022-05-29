@@ -122,7 +122,82 @@ public class GameBoard extends JPanel {
 	 */
 	private static void updateAdjacentBombsAround(MinesweeperPanel[][] board, int r, int c) { // Gotta be a more
 																								// efficient way to do
-																								// this
+		int[] loopValues = iterationValuesAroundTile(board, r, c);
+		int startI = loopValues[0];
+		int startJ = loopValues[1];
+		int maxI = loopValues[2];
+		int maxJ = loopValues[3];
+
+		for (int i = startI; i <= maxI; i++) {
+			for (int j = startJ; j <= maxJ; j++) {
+				if (i == 0 && j == 0)
+					continue;
+				MinesweeperPanel temp = board[r + i][c + j];
+
+				temp.setBombsAround(temp.getBombsAround() + 1);
+			}
+		}
+	}
+	
+	/**
+	 * Finds a tile on the game board and returns the coordinates for it
+	 * @param panel Tile that will be examined
+	 * @return Coordinates of the tile on the board
+	 */
+	public static int[] findTile(MinesweeperPanel panel) {
+		int[] coords = new int[2];
+		
+		for(int i = 0; i < board.length; i++) {
+			for(int j = 0; j < board[i].length; j++) {
+				if(board[i][j].equals(panel)) {
+					coords[0] = i;
+					coords[1] = j;
+					return coords;
+				}
+			}
+		}
+		return coords;
+	}
+	
+	/**
+	 * Checks if there are bombs around a tile within a one tile radius
+	 * @param panel Tile that will be examined
+	 * @return A boolean value depicting whether or not there is a bomb around this tile
+	 */
+	public static boolean hasBombsAroundTile(MinesweeperPanel panel) {
+		int[] coords = findTile(panel);
+		int r = coords[0], c = coords[1];
+		
+		int[] loopValues = iterationValuesAroundTile(board, r, c);
+		
+		int startI = loopValues[0];
+		int startJ = loopValues[1];
+		int maxI = loopValues[2];
+		int maxJ = loopValues[3];
+		
+		for (int i = startI; i <= maxI; i++) {
+			for (int j = startJ; j <= maxJ; j++) {
+				if (i == 0 && j == 0)
+					continue;
+				if(board[r + i][c + j].containsBomb()) {
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Return the values needed to iterate around the specified tile (specified by it's row and column)
+	 * @param board The board the tile is in
+	 * @param r The row the tile is in
+	 * @param c The column the tile is in
+	 * @return Values that will be used to iterate an area around the specified tile
+	 */
+	private static int[] iterationValuesAroundTile(MinesweeperPanel[][] board, int r, int c) {
+		
+		int[] values = new int[4];
 		int size = board.length - 1;
 		int startI = -1, startJ = -1, maxI = 1, maxJ = 1;
 
@@ -144,19 +219,12 @@ public class GameBoard extends JPanel {
 		} else if (c == size) { //Column is right side
 			maxJ--;
 		}
-
-		for (int i = startI; i <= maxI; i++) {
-			for (int j = startJ; j <= maxJ; j++) {
-				if (i == 0 && j == 0)
-					continue;
-				MinesweeperPanel temp = board[r + i][c + j];
-
-				temp.setBombsAround(temp.getBombsAround() + 1);
-			}
-		}
+		
+		values[0] = startI;
+		values[1] = startJ;
+		values[2] = maxI;
+		values[3] = maxJ;
+		
+		return values;
 	}
-	
-	
-	
-	
 }
