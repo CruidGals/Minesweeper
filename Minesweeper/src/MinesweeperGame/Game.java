@@ -32,10 +32,12 @@ public class Game extends JFrame {
 	static JMenuItem customMenu = new JMenuItem("Custom");
 	
 	static GameBoard currBoard;
+	static GameStartup gameStartupPanel;
 	
 	static boolean inPlay = false;
 
 	public Game() {
+		gameStartupPanel = new GameStartup();
 		currBoard = new GameBoard();		
 		
 		setTitle("Minesweeper");
@@ -60,7 +62,7 @@ public class Game extends JFrame {
 		ImageIcon bomb = new ImageIcon("bomb1.png");
 		setIconImage(bomb.getImage());
 
-		frameSwitcher.add(new GameStartup(), "GameStartup");
+		frameSwitcher.add(gameStartupPanel, "GameStartup");
 		cards.show(frameSwitcher, "GameStartup");
 
 		getContentPane().add(frameSwitcher);
@@ -78,10 +80,10 @@ public class Game extends JFrame {
 	class GameStartup extends JPanel{
 
 		private static final long serialVersionUID = -639427492631083189L;
-		static JButton easy = new JButton("Easy");
-		static JButton medium = new JButton("Medium");
-		static JButton hard = new JButton("Hard");
-		static JButton custom = new JButton("Custom");
+		JButton easy = new JButton("Easy");
+		JButton medium = new JButton("Medium");
+		JButton hard = new JButton("Hard");
+		JButton custom = new JButton("Custom");
 
 		final JLabel title = new JLabel("Minesweeper", SwingConstants.CENTER);
 
@@ -183,13 +185,13 @@ public class Game extends JFrame {
 				if(!ans) return;
 			}
 			
-			if (e.getSource() == GameStartup.easy || e.getSource() == easyMenu) {
+			if (e.getSource() == gameStartupPanel.easy || e.getSource() == easyMenu) {
 				initiateGame(7);
-			} else if (e.getSource() == GameStartup.medium || e.getSource() == mediumMenu) {
+			} else if (e.getSource() == gameStartupPanel.medium || e.getSource() == mediumMenu) {
 				initiateGame(12);
-			} else if (e.getSource() == GameStartup.hard || e.getSource() == hardMenu) {
+			} else if (e.getSource() == gameStartupPanel.hard || e.getSource() == hardMenu) {
 				initiateGame(20);
-			} else if (e.getSource() == GameStartup.custom || e.getSource() == customMenu) {
+			} else if (e.getSource() == gameStartupPanel.custom || e.getSource() == customMenu) {
 				String temp = JOptionPane.showInputDialog(null, "Input an integer (4 - 30) for the size of the game",
 						"5");
 				if (temp == null) {
