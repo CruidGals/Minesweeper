@@ -157,7 +157,7 @@ public class Game extends JFrame {
 	}
 
 	/**
-	 * Stops the game from running by opening all the tiles on the board.
+	 * Stops the game from running by opening all the panels on the board.
 	 */
 	public static void gameOver() {
 		for (MinesweeperPanel[] row : GameBoard.board) {

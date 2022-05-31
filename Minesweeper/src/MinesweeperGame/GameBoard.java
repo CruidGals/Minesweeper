@@ -14,14 +14,14 @@ import javax.swing.JPanel;
 public class GameBoard extends JPanel {
 
 	private static final long serialVersionUID = 5564628847039485367L;
-	private static int tilesLeft;
+	private static int panelsLeft;
 	private static int bombs;
 	static MinesweeperPanel[][] board;
 
 	public void initGame(int size) {
 		
 		this.setLayout(new GridLayout(size, size));
-		tilesLeft = size * size;
+		panelsLeft = size * size;
 		bombs = (int) Math.pow(size, 2) / 6;
 		
 		board = initMinesweeperBoard(size);
@@ -35,26 +35,26 @@ public class GameBoard extends JPanel {
 	}
 
 	/**
-	 * @return Returns the number of tiles that have not been opened yet
+	 * @return Returns the number of panels that have not been opened yet
 	 */
-	public static int getTilesLeft() {
-		return tilesLeft;
+	public static int getPanelsLeft() {
+		return panelsLeft;
 	}
 
 	/**
-	 * Sets the number of tiles that have not been opened yet
-	 * @param tilesLeft Numbers of tiles that have not been open yet
+	 * Sets the number of panels that have not been opened yet
+	 * @param panelsLeft Numbers of panels that have not been open yet
 	 */
-	public static void setTilesLeft(int t) {
-		tilesLeft = t;
+	public static void setPanelsLeft(int t) {
+		panelsLeft = t;
 	}
 	
 	/**
 	 * 
-	 * @return Returns a boolean value depending if all the normal tiles have been cleared
+	 * @return Returns a boolean value depending if all the normal panels have been cleared
 	 */
 	public static boolean boardCleared() {
-		return tilesLeft <= bombs;
+		return panelsLeft <= bombs;
 	}
 	
 	/**
@@ -122,7 +122,7 @@ public class GameBoard extends JPanel {
 	 */
 	private static void updateAdjacentBombsAround(MinesweeperPanel[][] board, int r, int c) { // Gotta be a more
 																								// efficient way to do
-		int[] loopValues = iterationValuesAroundTile(board, r, c);
+		int[] loopValues = iterationValuesAroundPanel(board, r, c);
 		int startI = loopValues[0];
 		int startJ = loopValues[1];
 		int maxI = loopValues[2];
@@ -140,11 +140,11 @@ public class GameBoard extends JPanel {
 	}
 	
 	/**
-	 * Finds a tile on the game board and returns the coordinates for it
-	 * @param panel Tile that will be examined
-	 * @return Coordinates of the tile on the board
+	 * Finds a panel on the game board and returns the coordinates for it
+	 * @param panel Panel that will be examined
+	 * @return Coordinates of the panel on the board
 	 */
-	public static int[] findTile(MinesweeperPanel panel) {
+	public static int[] findPanel(MinesweeperPanel panel) {
 		int[] coords = new int[2];
 		
 		for(int i = 0; i < board.length; i++) {
@@ -160,15 +160,15 @@ public class GameBoard extends JPanel {
 	}
 	
 	/**
-	 * Checks if there are bombs around a tile within a one tile radius
-	 * @param panel Tile that will be examined
-	 * @return A boolean value depicting whether or not there is a bomb around this tile
+	 * Checks if there are bombs around a panel within a one panel radius
+	 * @param panel Panel that will be examined
+	 * @return A boolean value depicting whether or not there is a bomb around this panel
 	 */
-	public static boolean hasBombsAroundTile(MinesweeperPanel panel) {
-		int[] coords = findTile(panel);
+	public static boolean hasBombsAroundPanel(MinesweeperPanel panel) {
+		int[] coords = findPanel(panel);
 		int r = coords[0], c = coords[1];
 		
-		int[] loopValues = iterationValuesAroundTile(board, r, c);
+		int[] loopValues = iterationValuesAroundPanel(board, r, c);
 		
 		int startI = loopValues[0];
 		int startJ = loopValues[1];
@@ -189,13 +189,13 @@ public class GameBoard extends JPanel {
 	}
 	
 	/**
-	 * Return the values needed to iterate around the specified tile (specified by it's row and column)
-	 * @param board The board the tile is in
-	 * @param r The row the tile is in
-	 * @param c The column the tile is in
-	 * @return Values that will be used to iterate an area around the specified tile
+	 * Return the values needed to iterate around the specified panel (specified by it's row and column)
+	 * @param board The board the panel is in
+	 * @param r The row the panel is in
+	 * @param c The column the panel is in
+	 * @return Values that will be used to iterate an area around the specified panel
 	 */
-	private static int[] iterationValuesAroundTile(MinesweeperPanel[][] board, int r, int c) {
+	private static int[] iterationValuesAroundPanel(MinesweeperPanel[][] board, int r, int c) {
 		
 		int[] values = new int[4];
 		int size = board.length - 1;
