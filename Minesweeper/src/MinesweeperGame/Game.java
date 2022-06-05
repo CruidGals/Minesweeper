@@ -14,6 +14,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 import java.awt.event.*;
+import java.util.Random;
 
 public class Game extends JFrame {
 
@@ -59,7 +60,7 @@ public class Game extends JFrame {
 		menuBar.add(game);
 		
 
-		ImageIcon bomb = new ImageIcon("bomb1.png");
+		ImageIcon bomb = new ImageIcon(getClass().getResource("resources/bomb.png"));
 		setIconImage(bomb.getImage());
 
 		frameSwitcher.add(gameStartupPanel, "GameStartup");
@@ -169,7 +170,21 @@ public class Game extends JFrame {
 		}
 	}
 	
-	
+	/**
+	 * Conditionals:
+	 * - Will activate 100% of the time if in a two panel radius, there are no bombs 
+	 * and/or all the bombs around the specified panel is flagged.
+	 *
+	 * - Once this command is first activated, it will have a 90% chance to reveal a tile around
+	 * it. This tile will have a smaller chance (current chance / 3) to perform recursion on this method
+	 * to reveal another clump of tiles.
+	 * @param panel
+	 */
+	public void revealClump(MinesweeperPanel panel, int chance) {
+
+		//Guard clause that checks for the first conditional
+		
+	}
 	
 	/**
 	 * Implements a new Action Listener to create a new game based on Source of the Action

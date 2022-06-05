@@ -43,7 +43,7 @@ public class MinesweeperPanel extends JPanel {
 		flaggedPanel.setBackground(Color.lightGray);
 		flaggedPanel.add(flaggedPanelIcon);
 		flaggedPanelIcon.setAlignmentX(CENTER_ALIGNMENT);
-		flaggedPanelIcon.setIcon(new ImageIcon("flag.png"));
+		flaggedPanelIcon.setIcon(new ImageIcon(getClass().getResource("resources/flag.png")));
 
 		revealedPanelText.setAlignmentX(CENTER_ALIGNMENT);
 		revealedPanel.add(revealedPanelText);

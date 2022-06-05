@@ -18,8 +18,11 @@ public class GameBoard extends JPanel {
 	private static int bombs;
 	static MinesweeperPanel[][] board;
 
+	private static ImageIcon bomb;
+
 	public void initGame(int size) {
 		
+		bomb = new ImageIcon(getClass().getResource("resources/bomb.png"));
 		this.setLayout(new GridLayout(size, size));
 		tilesLeft = size * size;
 		bombs = (int) Math.pow(size, 2) / 6;
@@ -85,7 +88,7 @@ public class GameBoard extends JPanel {
 				if (rand < maxBombs) {
 					orig.setBombStatus(true);
 					maxBombs--;
-					orig.revealedPanelText.setIcon(new ImageIcon("bomb1.png"));
+					orig.revealedPanelText.setIcon(bomb);
 					updateAdjacentBombsAround(board, r, c);
 				}
 				
@@ -195,7 +198,7 @@ public class GameBoard extends JPanel {
 	 * @param c The column the tile is in
 	 * @return Values that will be used to iterate an area around the specified tile
 	 */
-	private static int[] iterationValuesAroundTile(MinesweeperPanel[][] board, int r, int c) {
+	public static int[] iterationValuesAroundTile(MinesweeperPanel[][] board, int r, int c) {
 		
 		int[] values = new int[4];
 		int size = board.length - 1;
