@@ -125,7 +125,7 @@ public class MinesweeperPanel extends JPanel {
 		setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
 		revealedStatus = true;
 		
-		GameBoard.setTilesLeft(GameBoard.getTilesLeft() - 1);
+		GameBoard.setPanelsLeft(GameBoard.getPanelsLeft() - 1);
 		if(GameBoard.boardCleared()) {
 			Game.gameOver();
 		}
