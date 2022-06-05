@@ -69,6 +69,10 @@ public class MinesweeperPanel extends JPanel {
 		return revealedStatus;
 	}
 
+	public boolean getFlaggedStatus() {
+		return flaggedStatus;
+	}
+
 	public void setBombStatus(boolean b) {
 		hasBomb = b;
 	}
